@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: holiday-detail-service
+
+server:
+  port: 8888
+
+nager:
+  api:
+    base-url: https://date.nager.at/api/v3
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  packages-to-scan: com.accenture.assignment.holiday
+  paths-to-match: /api/v1/**
+
+logging:
+  level:
+    com.accenture.assignment.holiday: DEBUG
+    org.springframework.web: DEBUG

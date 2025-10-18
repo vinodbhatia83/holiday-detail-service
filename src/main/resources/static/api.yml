@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  title: Holiday Detail API
+  description: Endpoints to retrieve, compare, and analyze public holiday data for multiple countries, including recent holidays, non-weekend counts, and common holidays.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8888/
+    description: Local development
+paths:
+  /api/v1/holidays/recent:
+    get:
+      operationId: getRecentHolidays
+      summary: Last 3 celebrated holidays for a country
+      parameters:
+        - name: country
+          in: query
+          required: true
+          schema:
+            type: string
+          example: US
+      responses:
+        '200':
+          description: Recent holidays
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Holiday'
+        '400':
+          description: Invalid country code
+  /api/v1/holidays/non-weekend-count:
+    get:
+      operationId: getNonWeekendHolidayCounts
+      summary: Non-weekend holiday counts for countries in a year (sorted descending)
+      parameters:
+        - name: year
+          in: query
+          required: true
+          schema:
+            type: integer
+          example: 2025
+        - name: countries
+          in: query
+          required: true
+          schema:
+            type: string
+          example: US,CA,GB
+      responses:
+        '200':
+          description: Country counts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountryHolidayCount'
+        '400':
+          description: Invalid parameters
+  /api/v1/holidays/common:
+    get:
+      operationId: getCommonHolidays
+      summary: Deduplicated common holidays between two countries in a year
+      parameters:
+        - name: year
+          in: query
+          required: true
+          schema:
+            type: integer
+          example: 2025
+        - name: country1
+          in: query
+          required: true
+          schema:
+            type: string
+          example: US
+        - name: country2
+          in: query
+          required: true
+          schema:
+            type: string
+          example: CA
+      responses:
+        '200':
+          description: Common holidays
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommonHoliday'
+        '400':
+          description: Invalid parameters
+components:
+  schemas:
+    Holiday:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        name:
+          type: string
+      required:
+        - date
+        - name
+    CountryHolidayCount:
+      type: object
+      properties:
+        country:
+          type: string
+        count:
+          type: integer
+      required:
+        - country
+        - count
+    CommonHoliday:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        localNameCountry1:
+          type: string
+        localNameCountry2:
+          type: string
+      required:
+        - date
+        - localNameCountry1
+        - localNameCountry2
