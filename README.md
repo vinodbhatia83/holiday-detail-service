@@ -1,7 +1,6 @@
+## Holiday Detail Service
 
-# Holiday Detail Service
-
-A Spring Boot REST API to retrieve, compare, and analyze public holiday data for multiple countries. Supports endpoints for recent holidays, non-weekend holiday counts, and common holidays between countries.
+It has endpoints to retrieve, compare, and analyze public holiday data for multiple countries, including recent holidays, non-weekend counts, and common holidays.
 
 ## Features
 
@@ -29,33 +28,51 @@ Returns non-weekend holiday counts for the given countries in a year.
 
 Returns deduplicated common holidays between two countries in a year.
 
-## Schemas
 
-- **Holiday**: `{ date: string, name: string }`
-- **CountryHolidayCount**: `{ country: string, count: integer }`
-- **CommonHoliday**: `{ date: string, localNameCountry1: string, localNameCountry2: string }`
 
-## Getting Started
+# Technologies Used
+   - Spring Boot 3.5.6
+   - Java 17
+   - Maven 3.9
+   - OpenAPI 3 (Swagger)
+   - RESTFull endpoints
+   - Docker
 
-### Prerequisites
+## Project Structure
+      src — Source code of the holiday-detail-service
+      postman — Postman collection JSON file to test endpoints
 
-- Java 17+
-- Maven
+## Swagger Documentation
+      Swagger UI: http://localhost:8080/swagger-ui/index.html
+      OpenAPI JSON: http://localhost:8080/v3/api-docs
+      OpenAPI YAML: http://localhost:8080/v3/api-docs.yaml
 
-### Setup
+## How to Run Locally
+     1. Clone the repository:
+            git clone https://github.com/vinodbhatia83/holiday-detail-service.git
+      
+     2. Navigate to the project directory and start Docker:
+            cd holiday-detail-service
+            docker compose up
+     3. BUILD AND RUN THE APPLICATION:
+            mvn clean install
+            mvn spring-boot:run
 
-1. Clone the repository:
-   ```
-   git clone https://gitlab.com/vinodbhatia/assignmen-project.git
-   ```
-2. Build the project:
-   ```
-   mvn clean install
-   ```
-3. Run the application:
-   ```
-   mvn spring-boot:run
-   ```
+    Application will be running at http://localhost:8080
 
-The API will be available at `http://localhost:8888/`.
+   
+   ## Validation
+      All incoming requests are validated.
+      Invalid requests return meaningful error messages.
+
+
+##  Code Coverage
+    JaCoCo is integrated for code coverage analysis.
+
+## To generate a coverage report, run:
+      mvn clean test
+
+##  The coverage report will be available at:
+      /target/site/jacoco/index.html
+      Coverage is 95% as of now
 

@@ -1,4 +1,4 @@
-package com.accenture.assignment.holiday.exeception;
+package com.accenture.assignment.holiday.exception;
 
 /** Exception thrown when an invalid country is provided in a request.
  * <p>

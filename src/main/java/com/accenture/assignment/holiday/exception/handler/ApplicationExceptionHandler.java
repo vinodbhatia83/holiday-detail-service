@@ -1,7 +1,7 @@
-package com.accenture.assignment.holiday.exeception.handler;
+package com.accenture.assignment.holiday.exception.handler;
 
-import com.accenture.assignment.holiday.exeception.ExternalApiUnavailableException;
-import com.accenture.assignment.holiday.exeception.InvalidCountryException;
+import com.accenture.assignment.holiday.exception.ExternalApiUnavailableException;
+import com.accenture.assignment.holiday.exception.InvalidCountryException;
 import com.accenture.assignment.holiday.model.ProblemDetail;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;

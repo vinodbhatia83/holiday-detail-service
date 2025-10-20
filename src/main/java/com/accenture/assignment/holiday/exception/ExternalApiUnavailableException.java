@@ -1,4 +1,4 @@
-package com.accenture.assignment.holiday.exeception;
+package com.accenture.assignment.holiday.exception;
 
 /**
  * Exception thrown when an external API is unavailable or cannot be reached.

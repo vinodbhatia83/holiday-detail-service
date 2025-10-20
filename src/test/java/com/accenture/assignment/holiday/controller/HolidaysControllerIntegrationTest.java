@@ -1,9 +1,9 @@
 
 package com.accenture.assignment.holiday.controller;
 
+import com.accenture.assignment.holiday.exception.InvalidCountryException;
 import com.accenture.assignment.holiday.model.CommonHoliday;
 import com.accenture.assignment.holiday.model.CountryHolidayCount;
-import com.accenture.assignment.holiday.model.Holiday;
 import com.accenture.assignment.holiday.service.HolidayInsightService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class HolidaysControllerIT {
+class HolidaysControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,17 +41,6 @@ class HolidaysControllerIT {
         }
     }
 
-  //  @Test
-    void getRecentHolidays_returnsHolidayList() throws Exception {
-        List<Holiday> holidays = List.of(new Holiday(), new Holiday());
-        when(service.getRecentHolidays("AD")).thenReturn(holidays);
-
-        mockMvc.perform(get("/api/v1/holidays/recent")
-                        .param("country", "AD")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(2));
-    }
 
     @Test
     void getRecentHolidays_returnsEmptyList() throws Exception {
@@ -70,7 +59,6 @@ class HolidaysControllerIT {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
-
     @Test
     void getNonWeekendHolidayCounts_returnsCountryHolidayCountList() throws Exception {
         List<CountryHolidayCount> counts = List.of(new CountryHolidayCount(), new CountryHolidayCount());
@@ -124,6 +112,17 @@ class HolidaysControllerIT {
     }
 
     @Test
+    void getCommonHolidays_passingSameCountryParams_returnsBadRequest() throws Exception {
+        when(service.getCommonHolidays(2025,"AD","AD")).thenThrow(new InvalidCountryException("Service error"));
+        mockMvc.perform(get("/api/v1/holidays/common")
+                        .param("year", "2025")
+                        .param("country1", "AD")
+                        .param("country2", "AD")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void getCommonHolidays_missingParams_returnsBadRequest() throws Exception {
         mockMvc.perform(get("/api/v1/holidays/common")
                         .param("year", "2025")
@@ -140,5 +139,18 @@ class HolidaysControllerIT {
                         .param("country", "AD")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is5xxServerError());
+    }
+
+    @Test
+    void getNonWeekendHolidayCounts_withDuplicateCountries_returnsCorrectList() throws Exception {
+        List<CountryHolidayCount> counts = List.of(new CountryHolidayCount());
+        when(service.getNonWeekendHolidayCounts(2024, "AD,AD")).thenReturn(counts);
+
+        mockMvc.perform(get("/api/v1/holidays/non-weekend-count")
+                        .param("year", "2024")
+                        .param("countries", "AD,AD")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(1));
     }
 }
