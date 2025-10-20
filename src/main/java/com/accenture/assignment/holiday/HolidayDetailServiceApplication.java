@@ -35,13 +35,15 @@ public class HolidayDetailServiceApplication {
 		SpringApplication.run(HolidayDetailServiceApplication.class, args);
 	}
 
-	/**
-	 * Creates a {@link RestTemplate} bean configured with custom connection and response timeouts.
-	 * <p>
-	 * The underlying HTTP client uses a 45-second connection timeout and a 30-second response timeout.
-	 *
-	 * @return a configured {@link RestTemplate} instance
-	 */
+/**
+			* Creates and configures a {@link RestTemplate} bean with custom HTTP client settings.
+			* <p>
+ 			* The underlying HTTP client is set up with connection and response timeouts
+ 			* based on application properties. This ensures that REST calls made using this
+			* {@code RestTemplate} will respect the specified timeout values.
+			*
+			* @return a {@link RestTemplate} instance with custom timeout configuration
+ */
 	@Bean
 	public RestTemplate restTemplate() {
 		RequestConfig config = RequestConfig.custom()

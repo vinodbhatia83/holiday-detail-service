@@ -21,6 +21,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
+/**
+        * Global exception handler for REST controllers.
+        * Catches and processes various exceptions, returning standardized error responses
+ * using the {@link ProblemDetail} model.
+ */
 @RestControllerAdvice
 @Slf4j
 public class ApplicationExceptionHandler {

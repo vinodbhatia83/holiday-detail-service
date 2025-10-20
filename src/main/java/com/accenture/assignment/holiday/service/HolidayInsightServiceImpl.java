@@ -153,7 +153,17 @@ public class HolidayInsightServiceImpl implements HolidayInsightService {
                 .sorted(Comparator.comparing(PublicHoliday::date).reversed())
                 .toList();
     }
-
+    /**
+     * Retrieves the most recent public holidays for the specified country.
+     * <p>
+     * Looks back up to a fixed number of years to find the most recent holidays
+     * that have already occurred (not in the future), and returns a limited number
+     * of them as {@link Holiday} objects.
+     * </p>
+     *
+     * @param country the country code (e.g., "US", "IN") for which to fetch recent holidays
+     * @return a list of the most recent {@link Holiday} objects, up to a fixed count
+     */
     @Override
     public List<Holiday> getRecentHolidays(String country) {
         LocalDate now = LocalDate.now();
@@ -174,7 +184,17 @@ public class HolidayInsightServiceImpl implements HolidayInsightService {
                 .map(h -> new Holiday(LocalDate.parse(h.date()), h.name()))
                 .toList();
     }
-
+/**
+            * Calculates the number of non-weekend public holidays for each specified country in a given year.
+ * <p>
+ * For each country code provided, fetches the list of holidays and counts those
+ * that do not fall on a Saturday or Sunday. Results are sorted in descending order by count.
+            * </p>
+            *
+            * @param year the year for which to count holidays
+ * @param countries a comma-separated list of country codes (e.g., "US,IN,GB")
+ * @return a list of {@link CountryHolidayCount} objects, one per country, sorted by count descending
+ */
     @Override
     public List<CountryHolidayCount> getNonWeekendHolidayCounts(Integer year, String countries) {
 
