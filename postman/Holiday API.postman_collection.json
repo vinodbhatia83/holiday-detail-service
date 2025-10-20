@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "b494171d-16a6-436d-b031-ed3e9896729f",
+		"name": "Holiday API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "10217216"
+	},
+	"item": [
+		{
+			"name": "recent",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/holidays/recent?country=au",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"holidays",
+						"recent"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "au"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "non-weekend-count",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/holidays/non-weekend-count?year=2025&countries=AU",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"holidays",
+						"non-weekend-count"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2025"
+						},
+						{
+							"key": "countries",
+							"value": "AU"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "common",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/holidays/common?year=2025&country1=AU&country2=AD",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"holidays",
+						"common"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2025"
+						},
+						{
+							"key": "country1",
+							"value": "AU"
+						},
+						{
+							"key": "country2",
+							"value": "AD"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
